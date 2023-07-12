@@ -174,6 +174,22 @@ id: string;
 }
 ```
 
+## Tests
+
+To run the application tests, follow these steps:
+
+- 1. Install all project dependencies by executing the following command:
+
+```
+npm install
+```
+
+- 2. Execute the following command:
+
+```
+npm run test
+```
+
 ## Details
 
 Here are some additional details about the API:
@@ -191,3 +207,5 @@ Here are some additional details about the API:
 - 6. Not found middleware: A middleware filters non-existing routes and returns a 404 error.
 
 - 7. Schema validation: Request bodies are validated against predefined schemas to ensure data integrity.
+
+- 8. The ticket module are thoroughly tested to ensure functionality and reliability.
