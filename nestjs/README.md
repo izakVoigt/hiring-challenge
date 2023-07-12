@@ -1,73 +1,209 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Backend API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This repository contains a ticket API implemented in NestJS using Express.js, MongoDB, and Mongoose. The API allows you to manage tickets by providing endpoints for creating, updating, and retrieving ticket information. The application can be run locally either with or without Docker.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Usage
 
-## Description
+### Running without Docker
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+To run the application without Docker, follow these steps:
 
-## Installation
+- 1. Install all project dependencies by executing the following command:
 
-```bash
-$ npm install
+```
+npm install
 ```
 
-## Running the app
+- 2. Create a '.env' file in the root directory with the following attributes:
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```
+API_PORT=number
+MONGODB_URI=string
 ```
 
-## Test
+For example:
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+API_PORT=3000
+MONGODB_URI=mongodb://localhost:27017
 ```
 
-## Support
+- 3. Start your MongoDB server.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- 4. Launch the application using the following command:
 
-## Stay in touch
+```
+npm run dev
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Running with Docker
 
-## License
+To run the application with Docker, follow these steps:
 
-Nest is [MIT licensed](LICENSE).
+- 1. Install all project dependencies by executing the following command:
+
+```
+npm install
+```
+
+- 2. Create a '.env' file in the root directory with the following attributes:
+
+```
+API_PORT=number
+MONGODB_URI=string
+```
+
+For example:
+
+```
+API_PORT=4000
+MONGODB_URI=mongodb://database:27017
+```
+
+Note: When running the application in Docker, use the service name instead of 'localhost' in the MONGODB_URI variable to enable communication between containers within the same network.
+
+- 3. Run the following command to start the application and the database in Docker:
+
+```
+npm run dev:docker:up
+```
+
+This command will create the database container and the project container within the same network, allowing them to communicate with each other.
+
+## Routes
+
+The API provides the following routes:
+
+#### GET /tickets
+
+This endpoint retrieves a list of tickets sorted by deadline in descending order.
+
+##### Return (200):
+
+```
+{
+  "list": [
+    {
+      __v: number;
+      _id: string;
+      createdAt: date string;
+      updatedAt: date string;
+      client: string;
+      deadline: date string;
+      issue: string;
+      status: string;
+    }
+  ]
+}
+```
+
+#### POST /tickets
+
+This endpoint creates a new ticket.
+
+##### Request body:
+
+```
+{
+  "client": string;
+  "deadline": date string;
+  "issue": string;
+}
+```
+
+##### Return (201):
+
+```
+{
+  "ticket": {
+    __v: number;
+    _id: string;
+    createdAt: date string;
+    updatedAt: date string;
+    client: string;
+    deadline: date string;
+    issue: string;
+    status: string;
+  }
+}
+```
+
+#### PUT /tickets/:id
+
+This endpoint updates a ticket based on its ID.
+
+##### Request parameters:
+
+```
+id: string;
+```
+
+##### Request body:
+
+```
+{
+  "client"?: string;
+  "deadline"?: date string;
+  "issue"?: string;
+  "status"?: string;
+}
+```
+
+##### Return (200):
+
+```
+{
+  "ticket": {
+    __v: number;
+    _id: string;
+    createdAt: date string;
+    updatedAt: date string;
+    client: string;
+    deadline: date string;
+    issue: string;
+    status: string;
+  }
+}
+```
+
+##### Return (404):
+
+```
+{
+  "message": "Ticket not found"
+}
+```
+
+## Tests
+
+To run the application tests, follow these steps:
+
+- 1. Install all project dependencies by executing the following command:
+
+```
+npm install
+```
+
+- 2. Execute the following command:
+
+```
+npm run test
+```
+
+## Details
+
+Here are some additional details about the API:
+
+- 1. Design pattern used: MVC (Model-View-Controller).
+
+- 2. Variable loading and validation: The application validates environment variables and loads them into cache to reduce response time.
+
+- 3. CORS usage: Cross-Origin Resource Sharing (CORS) is implemented to define allowed methods and origins for the API.
+
+- 4. Helmet usage: Helmet is used to set security headers for the application.
+
+- 5. Body validation: The body of the request is validated in the controller before it calls the service to improve response time.
+
+- 6. Schema validation: Request bodies are validated against predefined schemas to ensure data integrity.
+
+- 7. The ticket module are thoroughly tested to ensure functionality and reliability.
