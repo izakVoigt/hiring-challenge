@@ -1,5 +1,6 @@
 import { corsOptions } from '@configs/corsOptions';
 import { connectDatabase, disconnectDatabase } from '@databases/mongoose';
+import { notFoundHandler } from '@middlewares/notFoundHandler';
 import { loadAndValidateEnvVariables } from '@utils/loadAndValidateEnvVariables';
 import cors from 'cors';
 import express from 'express';
@@ -17,6 +18,8 @@ const start = async () => {
     app.use(cors(corsOptions));
     app.use(helmet());
     app.use(express.json());
+
+    app.use(notFoundHandler);
 
     app.listen(port, () => {
       console.log(`Server started at http://localhost:${port}`);
