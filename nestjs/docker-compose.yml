@@ -1,0 +1,34 @@
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    container_name: Backend-NestJS
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - .env.development
+    ports:
+      - ${API_PORT}:${API_PORT}
+    command: npm run dev
+    networks:
+      - backend
+    depends_on:
+      database:
+        condition: service_healthy
+  database:
+    image: mongo:latest
+    container_name: Backend-MongoDB
+    ports:
+      - 27017:27017
+    networks:
+      - backend
+    healthcheck:
+      test: "exit 0"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+networks:
+  backend:
