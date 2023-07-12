@@ -15,6 +15,7 @@
       "@configs/*": ["configs/*"],
       "@databases/*": ["databases/*"],
       "@middlewares/*": ["middlewares/*"],
+      "@modules/*": ["modules/*"],
       "@utils/*": ["utils/*"]
     }
   },
