@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "target": "ES2022",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "removeComments": true,
+    "noImplicitAny": true
+  },
+  "exclude": ["**/node_modules", "**/.*/"],
+  "include": ["src"]
+}
