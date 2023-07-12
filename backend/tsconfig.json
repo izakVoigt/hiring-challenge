@@ -12,7 +12,9 @@
     "removeComments": true,
     "noImplicitAny": true,
     "paths": {
-      "@configs/*": ["configs/*"]
+      "@configs/*": ["configs/*"],
+      "@databases/*": ["databases/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "exclude": ["**/node_modules", "**/.*/"],

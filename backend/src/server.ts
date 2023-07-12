@@ -1,4 +1,5 @@
 import { corsOptions } from '@configs/corsOptions';
+import { connectDatabase, disconnectDatabase } from '@databases/mongoose';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
@@ -7,6 +8,8 @@ const start = async () => {
   try {
     const app = express();
     const port = Number(process.env.API_PORT);
+
+    await connectDatabase();
 
     app.use(cors(corsOptions));
     app.use(helmet());
@@ -22,6 +25,10 @@ const start = async () => {
     process.exit(1);
   }
 };
+
+process.on('beforeExit', async () => {
+  await disconnectDatabase();
+});
 
 if (require.main === module) {
   start().catch(console.error);
