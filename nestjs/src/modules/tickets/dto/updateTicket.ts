@@ -1,4 +1,4 @@
-import { IsDate, IsIn, IsOptional, IsString } from 'class-validator';
+import { IsDateString, IsIn, IsOptional, IsString } from 'class-validator';
 import { TicketStatusEnum } from '../../../utils/enums/ticketStatus';
 
 export class UpdateTicketDto {
@@ -7,8 +7,8 @@ export class UpdateTicketDto {
   client?: string;
 
   @IsOptional()
-  @IsDate({ message: '"deadline" should be a date' })
-  deadline?: Date;
+  @IsDateString({ strict: false, strictSeparator: false }, { message: '"deadline" should be a string' })
+  deadline?: string;
 
   @IsOptional()
   @IsString({ message: '"issue" should be a string' })

@@ -8,11 +8,11 @@
     "build": "nest build",
     "debug": "nest start --debug --watch",
     "dev": "nest start --watch",
-    "dev:docker:up": "docker compose --env-file=.env.development up -V --build",
-    "dev:docker:rm": "docker compose --env-file=.env.development rm -s -f -v",
+    "dev:docker:up": "docker compose --env-file=.env up -V --build",
+    "dev:docker:rm": "docker compose --env-file=.env rm -s -f -v",
     "start": "node dist/main",
-    "test:unit": "jest --config ./jest-unit.json --coverage --runInBand",
-    "test:unit:watch": "jest --config ./jest-unit.json --coverage --runInBand --watch"
+    "test": "jest --config ./jest.json --coverage --runInBand",
+    "test:watch": "jest --config ./jest.json --coverage --runInBand --watch"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

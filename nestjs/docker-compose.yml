@@ -9,7 +9,7 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     env_file:
-      - .env.development
+      - .env
     ports:
       - ${API_PORT}:${API_PORT}
     command: npm run dev

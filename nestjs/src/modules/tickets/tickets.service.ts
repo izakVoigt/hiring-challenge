@@ -5,7 +5,7 @@ import { MongoDBTicket } from '../../databases/schemas/ticket';
 import { errorHandler } from '../../utils/errorHandler';
 import { TicketStatusEnum } from '../../utils/enums/ticketStatus';
 import { CreateTicketDto, UpdateTicketDto } from './dto';
-import { ITicketModule } from './interfaces';
+import { ITicket, ITicketModule } from './interfaces';
 
 @Injectable()
 export class TicketsService implements ITicketModule {
@@ -13,11 +13,9 @@ export class TicketsService implements ITicketModule {
 
   async create(dto: CreateTicketDto) {
     try {
-      const newTicket = new this.ticketModel(dto);
+      const newTicket = await this.ticketModel.create(dto);
 
-      const ticket = await newTicket.save();
-
-      return { ticket };
+      return { ticket: newTicket as unknown as ITicket };
     } catch (error) {
       errorHandler(error);
     }
@@ -27,7 +25,9 @@ export class TicketsService implements ITicketModule {
     try {
       const list = await this.ticketModel.find().sort({ deadline: -1 });
 
-      return { list };
+      const plainList = list.map((ticket) => ticket as unknown as ITicket);
+
+      return { list: plainList };
     } catch (error) {
       errorHandler(error);
     }
@@ -51,7 +51,7 @@ export class TicketsService implements ITicketModule {
 
       const ticket = await this.ticketModel.findById(id);
 
-      return { ticket };
+      return { ticket: ticket as unknown as ITicket };
     } catch (error) {
       errorHandler(error);
     }
