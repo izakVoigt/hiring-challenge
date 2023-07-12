@@ -1,11 +1,14 @@
 import { corsOptions } from '@configs/corsOptions';
 import { connectDatabase, disconnectDatabase } from '@databases/mongoose';
+import { loadAndValidateEnvVariables } from '@utils/loadAndValidateEnvVariables';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 
 const start = async () => {
   try {
+    loadAndValidateEnvVariables();
+
     const app = express();
     const port = Number(process.env.API_PORT);
 
