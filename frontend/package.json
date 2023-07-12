@@ -5,6 +5,8 @@
   "license": "ISC",
   "main": "src/index.tsx",
   "scripts": {
+    "dev:docker:up": "docker compose --env-file=.env up -V --build",
+    "dev:docker:rm": "docker compose --env-file=.env rm -s -f -v",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
