@@ -6,6 +6,8 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "dev:docker:up": "docker compose --env-file=.env up -V --build",
+    "dev:docker:rm": "docker compose --env-file=.env rm -s -f -v",
     "test": "jest --config ./jest.json --coverage --runInBand"
   },
   "dependencies": {
